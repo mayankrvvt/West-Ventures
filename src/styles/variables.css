@@ -1,0 +1,32 @@
+:root {
+  /* Color: deep ink navy, warm brass, paper, and a moss green for
+     secondary accents — pulled from the brand's existing navy/gold
+     identity, but deepened and desaturated so it reads as considered
+     rather than corporate-default blue. */
+  --ink-900: #0e1226;
+  --ink-800: #171c38;
+  --ink-700: #232a4d;
+  --paper-100: #f7f4ec;
+  --paper-200: #efeadd;
+  --brass-500: #c69a46;
+  --brass-600: #a97e30;
+  --brass-100: #f1e2bd;
+  --moss-600: #3c6357;
+  --moss-100: #dfe9e4;
+  --text-900: #171a26;
+  --text-600: #565b6e;
+  --text-inverse: #f4f2ea;
+  --line: rgba(14, 18, 38, 0.12);
+  --line-inverse: rgba(244, 242, 234, 0.16);
+
+  --font-display: "Fraunces", "Iowan Old Style", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --container: 1180px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  --radius-sm: 3px;
+  --radius-md: 6px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
