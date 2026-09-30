@@ -16,37 +16,48 @@ const PORT = Number(process.env.PORT) || 5050;
 |--------------------------------------------------------------------------
 | CORS
 |--------------------------------------------------------------------------
-|
-| Add your Vercel/custom frontend domains through CLIENT_URL.
-|
-| Example:
-|
-| CLIENT_URL=https://your-site.vercel.app,https://westventures.ca
-|
-| During local development, localhost and 127.0.0.1 ports are allowed.
-|
 */
 
-const allowedOrigins = (process.env.CLIENT_URL || "")
-  .split(",")
-  .map((value) => value.trim())
-  .filter(Boolean);
+const allowedOrigins = [
+  "https://west-ventures.vercel.app",
+
+  ...(process.env.CLIENT_URL || "")
+    .split(",")
+    .map((value) => value.trim().replace(/\/$/, ""))
+    .filter(Boolean),
+];
 
 function isAllowedOrigin(origin) {
-  // Requests such as curl/Postman may not send an Origin header.
+  // Requests from curl/Postman may not contain an Origin header.
   if (!origin) {
     return true;
   }
 
-  // Explicitly configured production origins.
-  if (allowedOrigins.includes(origin)) {
+  const normalizedOrigin = origin
+    .trim()
+    .replace(/\/$/, "");
+
+  // Explicitly allow the production Vercel frontend.
+  if (
+    normalizedOrigin ===
+    "https://west-ventures.vercel.app"
+  ) {
+    return true;
+  }
+
+  // Allow configured origins from CLIENT_URL.
+  if (
+    allowedOrigins.includes(normalizedOrigin)
+  ) {
     return true;
   }
 
   // Allow localhost during development.
-  if (process.env.NODE_ENV !== "production") {
+  if (
+    process.env.NODE_ENV !== "production"
+  ) {
     try {
-      const url = new URL(origin);
+      const url = new URL(normalizedOrigin);
 
       if (
         url.hostname === "localhost" ||
@@ -62,6 +73,12 @@ function isAllowedOrigin(origin) {
   return false;
 }
 
+/*
+|--------------------------------------------------------------------------
+| CORS Middleware
+|--------------------------------------------------------------------------
+*/
+
 app.use(
   cors({
     origin(origin, callback) {
@@ -69,10 +86,11 @@ app.use(
         return callback(null, true);
       }
 
-      console.error("Blocked CORS origin:", origin);
+      console.error(
+        "Blocked CORS origin:",
+        origin
+      );
 
-      // Don't throw an error here.
-      // Simply reject the origin.
       return callback(null, false);
     },
 
@@ -137,7 +155,8 @@ app.post("/api/admin/login", (req, res) => {
       !process.env.JWT_SECRET
     ) {
       return res.status(500).json({
-        message: "Admin authentication is not configured.",
+        message:
+          "Admin authentication is not configured.",
       });
     }
 
@@ -165,7 +184,10 @@ app.post("/api/admin/login", (req, res) => {
       token,
     });
   } catch (error) {
-    console.error("Admin login error:", error);
+    console.error(
+      "Admin login error:",
+      error
+    );
 
     return res.status(500).json({
       message: "Unable to process admin login.",
@@ -185,7 +207,7 @@ app.use("/api/leads", leadsRouter);
 
 /*
 |--------------------------------------------------------------------------
-| 404 HANDLER
+| API 404 HANDLER
 |--------------------------------------------------------------------------
 */
 
@@ -208,14 +230,19 @@ app.use((req, res, next) => {
 */
 
 app.use((error, req, res, next) => {
-  console.error("Server error:", error);
+  console.error(
+    "Server error:",
+    error
+  );
 
   if (res.headersSent) {
     return next(error);
   }
 
   return res.status(500).json({
-    message: error.message || "Internal server error.",
+    message:
+      error.message ||
+      "Internal server error.",
   });
 });
 
@@ -227,7 +254,9 @@ app.use((error, req, res, next) => {
 
 async function start() {
   if (!process.env.MONGODB_URI) {
-    console.error("MONGODB_URI is missing.");
+    console.error(
+      "MONGODB_URI is missing."
+    );
 
     process.exit(1);
   }
@@ -239,7 +268,9 @@ async function start() {
     |--------------------------------------------------------------------------
     */
 
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(
+      process.env.MONGODB_URI
+    );
 
     console.log(
       `MongoDB connected: ${mongoose.connection.host}`
@@ -250,7 +281,7 @@ async function start() {
     | Express
     |--------------------------------------------------------------------------
     |
-    | 0.0.0.0 is important for Render.
+    | 0.0.0.0 is required for Render.
     | Render provides the PORT environment variable.
     |
     */
@@ -265,7 +296,8 @@ async function start() {
 
         console.log(
           `Environment: ${
-            process.env.NODE_ENV || "development"
+            process.env.NODE_ENV ||
+            "development"
           }`
         );
       }
