@@ -17,18 +17,17 @@ const PORT = Number(process.env.PORT) || 5050;
 | CORS
 |--------------------------------------------------------------------------
 |
-| Production origins can be added through CLIENT_URL:
+| Add your Vercel/custom frontend domains through CLIENT_URL.
 |
-| CLIENT_URL=https://westventures.ca,https://www.westventures.ca
+| Example:
 |
-| During local development, localhost/127.0.0.1 ports are allowed so
-| Vite can move between 5173, 5174, 5175, etc. without breaking CORS.
+| CLIENT_URL=https://your-site.vercel.app,https://westventures.ca
+|
+| During local development, localhost and 127.0.0.1 ports are allowed.
 |
 */
 
-const allowedOrigins = (
-  process.env.CLIENT_URL || ""
-)
+const allowedOrigins = (process.env.CLIENT_URL || "")
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
@@ -39,12 +38,12 @@ function isAllowedOrigin(origin) {
     return true;
   }
 
-  // Explicitly configured origins.
+  // Explicitly configured production origins.
   if (allowedOrigins.includes(origin)) {
     return true;
   }
 
-  // Allow localhost and 127.0.0.1 during development.
+  // Allow localhost during development.
   if (process.env.NODE_ENV !== "production") {
     try {
       const url = new URL(origin);
@@ -72,8 +71,8 @@ app.use(
 
       console.error("Blocked CORS origin:", origin);
 
-      // Return false instead of throwing an error. This prevents
-      // the CORS middleware from generating an unexpected 500.
+      // Don't throw an error here.
+      // Simply reject the origin.
       return callback(null, false);
     },
 
@@ -116,7 +115,7 @@ app.use(
 */
 
 app.get("/api/health", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     status: "OK",
     message: "West Ventures backend is healthy.",
   });
@@ -138,8 +137,7 @@ app.post("/api/admin/login", (req, res) => {
       !process.env.JWT_SECRET
     ) {
       return res.status(500).json({
-        message:
-          "Admin authentication is not configured.",
+        message: "Admin authentication is not configured.",
       });
     }
 
@@ -189,9 +187,6 @@ app.use("/api/leads", leadsRouter);
 |--------------------------------------------------------------------------
 | 404 HANDLER
 |--------------------------------------------------------------------------
-|
-| This makes missing API routes easier to identify.
-|
 */
 
 app.use((req, res, next) => {
@@ -220,8 +215,7 @@ app.use((error, req, res, next) => {
   }
 
   return res.status(500).json({
-    message:
-      error.message || "Internal server error.",
+    message: error.message || "Internal server error.",
   });
 });
 
@@ -233,9 +227,7 @@ app.use((error, req, res, next) => {
 
 async function start() {
   if (!process.env.MONGODB_URI) {
-    console.error(
-      "MONGODB_URI is missing from backend/.env"
-    );
+    console.error("MONGODB_URI is missing.");
 
     process.exit(1);
   }
@@ -247,9 +239,7 @@ async function start() {
     |--------------------------------------------------------------------------
     */
 
-    await mongoose.connect(
-      process.env.MONGODB_URI
-    );
+    await mongoose.connect(process.env.MONGODB_URI);
 
     console.log(
       `MongoDB connected: ${mongoose.connection.host}`
@@ -259,23 +249,31 @@ async function start() {
     |--------------------------------------------------------------------------
     | Express
     |--------------------------------------------------------------------------
+    |
+    | 0.0.0.0 is important for Render.
+    | Render provides the PORT environment variable.
+    |
     */
 
-    const server = app.listen(PORT, () => {
-      console.log(
-        `West Ventures API running on http://localhost:${PORT}`
-      );
+    const server = app.listen(
+      PORT,
+      "0.0.0.0",
+      () => {
+        console.log(
+          `West Ventures API running on port ${PORT}`
+        );
 
-      console.log(
-        `Environment: ${
-          process.env.NODE_ENV || "development"
-        }`
-      );
-    });
+        console.log(
+          `Environment: ${
+            process.env.NODE_ENV || "development"
+          }`
+        );
+      }
+    );
 
     /*
     |--------------------------------------------------------------------------
-    | PORT ERROR
+    | SERVER ERROR
     |--------------------------------------------------------------------------
     */
 
