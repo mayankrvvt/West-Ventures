@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ServicesPage.css";
 
 import Reveal from "../components/Reveal";
 
-import heroImage from "../assets/images/hero/img2.jpg";
+import heroImage1 from "../assets/images/hero/img.jpg";
+import heroImage2 from "../assets/images/hero/img1.jpg";
+import heroImage3 from "../assets/images/hero/img2.jpg";
+import heroImage4 from "../assets/images/hero/img3.jpg";
+import heroImage5 from "../assets/images/hero/img4.jpg";
+
 import staffingImage from "../assets/images/hero/img3.jpg";
 import strategyImage from "../assets/images/hero/img4.jpg";
 import campusImage from "../assets/images/hero/img1.jpg";
 
+const heroImages = [
+  heroImage1,
+  heroImage2,
+  heroImage3,
+  heroImage4,
+  heroImage5,
+];
+
 const ServicesPage = () => {
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="services-page">
 
@@ -16,10 +39,20 @@ const ServicesPage = () => {
           HERO
       ===================================================== */}
 
-      <section
-        className="services-hero"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
+      <section className="services-hero">
+        <div className="services-hero-images" aria-hidden="true">
+          {heroImages.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt=""
+              className={`services-hero-image ${
+                index === currentHeroImage ? "is-active" : ""
+              }`}
+            />
+          ))}
+        </div>
+
         <div className="services-hero-overlay" />
 
         <div className="services-hero-content">
@@ -55,7 +88,7 @@ const ServicesPage = () => {
               <div className="yellow-line" />
 
               <p className="lead-intro">
-                We provide leads services to:
+                We provide lead generation services for:
               </p>
 
               <div className="lead-item">
@@ -69,7 +102,7 @@ const ServicesPage = () => {
               <div className="lead-item">
                 <h3>Educations</h3>
                 <p>
-                  Top students leads from overseas.
+                  Top student leads from overseas.
                 </p>
               </div>
 
@@ -83,16 +116,16 @@ const ServicesPage = () => {
               <div className="lead-item">
                 <h3>Restaurants</h3>
                 <p>
-                  Strategy to fill up the restaurant.
+                  Strategies to increase restaurant bookings.
                   <br />
-                  Revenue to restaurant operations.
+                  Strategies to improve restaurant revenue and operations.
                 </p>
               </div>
 
               <div className="lead-item">
                 <h3>Overseas Partnership</h3>
                 <p>
-                  Licenced agents with training.
+                  Licensed agents with training.
                 </p>
               </div>
 
@@ -159,7 +192,7 @@ const ServicesPage = () => {
             <p>
               Provide necessary documents like Business License
               Numbers, Tax Returns, and employees on payroll to
-              ensure the lead authentic Collaborations available
+              ensure the lead is authentic. Collaborations available
               across multiple industries like IT, Construction,
               Manufacturing, Hospitality, Accounting, Leisure,
               among others.
@@ -194,7 +227,7 @@ const ServicesPage = () => {
 
             <h3>
               Once you sign up with us, you will have access
-              to the following West Force services
+              to the following WestForce services
             </h3>
 
             <ul className="service-check-list">
@@ -210,7 +243,7 @@ const ServicesPage = () => {
               <li>
                 <span>✓</span>
                 <p>
-                  Assisting you with finding the right position
+                  Assisting you in finding the right position
                   for your candidate
                 </p>
               </li>
@@ -296,7 +329,7 @@ const ServicesPage = () => {
             <p>
               Networking events with your organization and
               new graduates interested in your industry.
-              Inspire them to build a career with your company.
+              Inspire them to build careers with your company.
             </p>
 
           </Reveal>
@@ -323,7 +356,7 @@ const ServicesPage = () => {
               <div className="yellow-line center" />
 
               <p>
-                We understand the financial implications of COVID.
+                We understand the financial considerations involved.
                 Therefore, we are price conscious and offer you
                 a range of plans.
               </p>
@@ -460,7 +493,7 @@ const ServicesPage = () => {
                 <div className="price-divider" />
 
                 <p>
-                  Cost – $15,000 /per month
+                  Cost – $15,000 per month
                   + GST 5%
                 </p>
 
@@ -526,7 +559,7 @@ const ServicesPage = () => {
                 <div className="price-divider" />
 
                 <p>
-                  Cost – $12,000 /per month
+                  Cost – $12,000 per month
                   + GST 5%
                 </p>
 
@@ -592,7 +625,7 @@ const ServicesPage = () => {
                 <div className="price-divider" />
 
                 <p>
-                  Cost – $10,500 /per month
+                  Cost – $10,500 per month
                   + GST 5%
                 </p>
 
@@ -658,7 +691,7 @@ const ServicesPage = () => {
                 <div className="price-divider" />
 
                 <p>
-                  Cost – $9,000 /per month
+                  Cost – $9,000 per month
                   + GST 5%
                 </p>
 
@@ -717,7 +750,7 @@ const ServicesPage = () => {
               </h3>
 
               <p className="addon-note">
-                As of 2021 we charge procurement cost of
+                We charge a procurement cost of
                 arranging confidential documents of the
                 employer through privacy process for a cost
                 of $2500

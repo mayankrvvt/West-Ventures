@@ -43,19 +43,10 @@
 
   padding: 70px 0;
 
-  background-image:
-    linear-gradient(
-      rgba(14, 18, 38, 0.86),
-      rgba(14, 18, 38, 0.86)
-    ),
-    url("../../assets/images/hero/img2.jpg");
-
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
+  background: var(--ink-900);
   color: var(--text-inverse);
   overflow: hidden;
+  isolation: isolate;
 }
 
 .about-hero-inner {
@@ -122,23 +113,63 @@
 }
 
 
-/* Keep the About hero dark even if another global section rule is present. */
-.about-page .about-hero {
-  background-image:
-    linear-gradient(
-      rgba(14, 18, 38, 0.86),
-      rgba(14, 18, 38, 0.86)
-    ),
-    url("../../assets/images/hero/img2.jpg");
+/* =========================================================
+   ABOUT HERO — ROTATING IMAGE SLIDESHOW
+   Images are rendered by AboutPage.jsx.
+========================================================= */
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: var(--text-inverse);
+.about-hero-images {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.about-hero-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0;
+  transform: scale(1.06);
+
+  transition:
+    opacity 1.3s ease-in-out,
+    transform 7s ease-out;
+
+  will-change: opacity, transform;
+}
+
+.about-hero-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.about-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+
+  background:
+    linear-gradient(
+      rgba(14, 18, 38, 0.68),
+      rgba(14, 18, 38, 0.72)
+    );
+
+  pointer-events: none;
 }
 
 .about-page .about-hero-title,
 .about-page .about-breadcrumb {
+  position: relative;
+  z-index: 2;
   color: var(--text-inverse);
 }
 
@@ -761,6 +792,10 @@
 ========================================================= */
 
 @media (max-width: 650px) {
+
+  .about-hero-image {
+    object-position: center center;
+  }
 
   .about-hero {
     min-height: 280px;

@@ -1,7 +1,38 @@
 import React from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
 
+import ImageSlideshow from "../../components/ImageSlideshow";
+
+import heroImg0 from "../../assets/images/hero/img.jpg";
+import heroImg1 from "../../assets/images/hero/img1.jpg";
+import heroImg2 from "../../assets/images/hero/img2.jpg";
+import heroImg3 from "../../assets/images/hero/img3.jpg";
+import heroImg4 from "../../assets/images/hero/img4.jpg";
+
 import "./Contact.css";
+
+const contactHeroImages = [
+  {
+    src: heroImg0,
+    alt: "West Ventures — Canadian business district",
+  },
+  {
+    src: heroImg1,
+    alt: "West Ventures team collaborating",
+  },
+  {
+    src: heroImg2,
+    alt: "West Ventures client workspace",
+  },
+  {
+    src: heroImg3,
+    alt: "West Ventures staffing and recruiting session",
+  },
+  {
+    src: heroImg4,
+    alt: "West Ventures marketing planning session",
+  },
+];
 
 export default function Contact() {
   return (
@@ -11,7 +42,15 @@ export default function Contact() {
           HERO
       ========================= */}
       <section className="contact-hero">
-        <div className="contact-hero-overlay"></div>
+        <ImageSlideshow
+          images={contactHeroImages}
+          interval={6000}
+        />
+
+        <div
+          className="contact-hero-overlay"
+          aria-hidden="true"
+        />
 
         <div className="contact-hero-content">
           <h1>Contact Us</h1>
@@ -36,7 +75,7 @@ export default function Contact() {
           <div className="contact-details">
 
             <h2>
-              Contacts
+              Contact
               <br />
               <span>Details</span>
             </h2>
@@ -46,7 +85,7 @@ export default function Contact() {
 
               <p>
                 Please let us know if you have a question
-                or want to leave a comment
+                or want to leave a comment.
               </p>
             </div>
 

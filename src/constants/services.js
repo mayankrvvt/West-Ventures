@@ -6,6 +6,7 @@ export const services = [
     description:
       "We source, vet, and place talent against roles you've defined tightly — not a resume dump. Every shortlist is built around the skills the role actually needs and the pace your team works at.",
   },
+
   {
     id: "campus",
     label: "Campus Connect",
@@ -13,6 +14,7 @@ export const services = [
     description:
       "We run structured pipelines with university programs so you meet graduates before they're on the open market — briefed on your business, not just your job posting.",
   },
+
   {
     id: "lead-gen",
     label: "Lead Generation",
@@ -20,11 +22,12 @@ export const services = [
     description:
       "We research your market, build outbound and inbound programs around it, and hand your sales team qualified conversations instead of cold lists.",
   },
+
   {
-    id: "web-branding",
-    label: "Web & Branding",
-    summary: "A site and identity that carry the business.",
+    id: "custom-ai-agents",
+    label: "Custom AI Agents",
+    summary: "We provide custom AI agents for your business.",
     description:
-      "From positioning to the finished site, we build the identity work and web presence that make the rest of your growth programs land credibly.",
+      "We provide custom AI agents designed around your business needs, helping automate workflows, engage with customers, and improve day-to-day operations.",
   },
 ];

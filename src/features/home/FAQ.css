@@ -1,34 +1,81 @@
+/* =========================================================
+   FAQ PAGE
+========================================================= */
+
 .faq-page {
   width: 100%;
   background: #ffffff;
   color: #111111;
+  overflow: hidden;
 }
 
-/* =========================================
+/* =========================================================
    HERO
-========================================= */
+========================================================= */
 
 .faq-hero {
   position: relative;
-
   height: 340px;
   min-height: 340px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-image: url("../../assets/images/hero/img2.jpg");
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+  isolation: isolate;
 }
+
+/* =========================================================
+   ROTATING HERO IMAGES
+========================================================= */
+
+.faq-hero-images {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.faq-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0;
+  transform: scale(1.06);
+
+  transition:
+    opacity 1.2s ease-in-out,
+    transform 6s ease-in-out;
+
+  pointer-events: none;
+}
+
+.faq-hero-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================================
+   HERO OVERLAY
+========================================================= */
 
 .faq-hero-overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
 
-  background: rgba(14, 18, 38, 0.86);
+  background: rgba(14, 18, 38, 0.78);
+
+  pointer-events: none;
 }
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
 
 .faq-hero-content {
   position: relative;
@@ -43,10 +90,14 @@
 
   font-size: clamp(58px, 6vw, 88px);
   line-height: 1;
-  font-weight: 700;
 
+  font-weight: 700;
   letter-spacing: -0.04em;
 }
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
 
 .faq-breadcrumb {
   margin-top: 28px;
@@ -59,10 +110,12 @@
 
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .faq-breadcrumb-arrow {
   font-size: 21px;
+  line-height: 1;
   opacity: 0.75;
 }
 
@@ -70,25 +123,23 @@
   color: #ffb719;
 }
 
-/* =========================================
+/* =========================================================
    FAQ CONTENT
-========================================= */
+========================================================= */
 
 .faq-content {
   background: #ffffff;
-
   padding: 105px 0 120px;
 }
 
 .faq-container {
   width: min(1200px, calc(100% - 80px));
-
   margin: 0 auto;
 }
 
-/* =========================================
+/* =========================================================
    INDIVIDUAL FAQ
-========================================= */
+========================================================= */
 
 .faq-item {
   margin-bottom: 36px;
@@ -99,8 +150,8 @@
 
   font-size: 20px;
   line-height: 1.55;
-  font-weight: 600;
 
+  font-weight: 600;
   color: #111111;
 }
 
@@ -122,7 +173,6 @@
 
 .faq-answer > strong {
   flex-shrink: 0;
-
   font-weight: 700;
 }
 
@@ -138,9 +188,18 @@
   margin-bottom: 0;
 }
 
-/* =========================================
+/* Spacing for bullet-style divs */
+.faq-answer-content > div {
+  margin-bottom: 8px;
+}
+
+.faq-answer-content > div:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
    CLIENT EXPECTATIONS
-========================================= */
+========================================================= */
 
 .faq-client-list {
   margin-top: 3px;
@@ -151,7 +210,6 @@
   align-items: flex-start;
 
   gap: 12px;
-
   margin-bottom: 10px;
 }
 
@@ -175,11 +233,16 @@
   margin: 0;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 900px) {
+  .faq-hero {
+    height: 300px;
+    min-height: 300px;
+  }
+
   .faq-content {
     padding: 75px 0 90px;
   }
@@ -201,14 +264,40 @@
   }
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
   .faq-hero {
     height: 260px;
     min-height: 260px;
   }
 
+  .faq-hero-image {
+    object-position: center;
+  }
+
+  .faq-hero-overlay {
+    background: rgba(14, 18, 38, 0.82);
+  }
+
+  .faq-hero-content {
+    padding: 0 20px;
+  }
+
   .faq-hero-content h1 {
     font-size: 54px;
+  }
+
+  .faq-breadcrumb {
+    margin-top: 20px;
+    gap: 11px;
+    font-size: 11px;
+  }
+
+  .faq-breadcrumb-arrow {
+    font-size: 18px;
   }
 
   .faq-content {
@@ -235,5 +324,40 @@
 
   .faq-client-list > div {
     gap: 9px;
+  }
+
+  .faq-client-list span {
+    font-size: 20px;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+  .faq-hero {
+    height: 230px;
+    min-height: 230px;
+  }
+
+  .faq-hero-content h1 {
+    font-size: 46px;
+  }
+
+  .faq-content {
+    padding: 45px 0 60px;
+  }
+
+  .faq-container {
+    width: calc(100% - 26px);
+  }
+
+  .faq-item h3 {
+    font-size: 16px;
+  }
+
+  .faq-answer {
+    font-size: 15px;
   }
 }

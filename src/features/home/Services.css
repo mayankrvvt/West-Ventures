@@ -1,150 +1,695 @@
+/* =========================================================
+   WEST VENTURES — SERVICES
+========================================================= */
+
+.services-page {
+  width: 100%;
+  background: var(--surface, #f7f4ec);
+  color: var(--text-900, #111522);
+  overflow: hidden;
+}
+
+/* =========================================================
+   SERVICES HERO
+========================================================= */
+
+.services-hero {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  min-height: 400px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* =========================================================
+   HERO IMAGE SLIDESHOW
+========================================================= */
+
+.services-hero-images {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  z-index: 0;
+}
+
+.services-hero-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0;
+  transform: scale(1.06);
+
+  transition:
+    opacity 1.2s ease-in-out,
+    transform 6s ease-in-out;
+
+  pointer-events: none;
+}
+
+.services-hero-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================================
+   HERO OVERLAY
+========================================================= */
+
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background: rgba(10, 15, 35, 0.8);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+
+  text-align: center;
+  color: #ffffff;
+}
+
+.services-hero-content h1 {
+  margin: 0;
+
+  font-family: var(
+    --font-display,
+    Georgia,
+    serif
+  );
+
+  font-size: clamp(58px, 6vw, 88px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+/* =========================================================
+   HERO BREADCRUMB
+========================================================= */
+
+.services-hero-breadcrumb {
+  margin-top: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.services-hero-breadcrumb-arrow {
+  font-size: 21px;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.services-hero-breadcrumb .active {
+  color: var(
+    --brass-500,
+    #c69a46
+  );
+}
+
+/* =========================================================
+   SERVICES CONTENT
+========================================================= */
+
+.services {
+  background: var(
+    --surface,
+    #f7f4ec
+  );
+}
+
 .services-grid {
   display: grid;
   gap: 3rem;
 }
 
+/* =========================================================
+   SERVICES INTRO
+========================================================= */
+
 .services-heading {
-  font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  font-family: var(
+    --font-display,
+    Georgia,
+    serif
+  );
+
+  font-size: clamp(
+    1.7rem,
+    3.4vw,
+    2.4rem
+  );
+
   max-width: 16ch;
   margin-top: 0.5rem;
 }
 
 .services-copy {
   margin-top: 1.1rem;
-  color: var(--text-600);
+
+  color: var(
+    --text-600,
+    #5c6273
+  );
+
+  max-width: 58ch;
+  line-height: 1.7;
 }
+
+/* =========================================================
+   SERVICES INTERACTIVE AREA
+========================================================= */
 
 .services-interactive {
   display: grid;
+
   gap: 1.5rem;
-  border-top: 1px solid var(--line);
+
+  border-top: 1px solid var(
+    --line,
+    #ded9ce
+  );
+
   padding-top: 2rem;
 }
 
+/* =========================================================
+   SERVICES LIST
+========================================================= */
+
 .services-list {
   list-style: none;
+
   margin: 0;
   padding: 0;
 }
 
+.services-list li {
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================================
+   SERVICE BUTTON
+========================================================= */
+
 .services-list-item {
   width: 100%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 1rem;
+
   background: none;
   border: none;
-  border-bottom: 1px solid var(--line);
+
+  border-bottom: 1px solid var(
+    --line,
+    #ded9ce
+  );
+
   padding: 1.3rem 0.5rem 1.3rem 0.25rem;
+
   text-align: left;
-  color: var(--text-600);
-  border-radius: var(--radius-sm);
-  transition: color 0.25s var(--ease), padding-left 0.25s var(--ease), background 0.25s var(--ease);
+
+  color: var(
+    --text-600,
+    #5c6273
+  );
+
+  border-radius: var(
+    --radius-sm,
+    8px
+  );
+
+  cursor: pointer;
+
+  transition:
+    color 0.25s var(--ease, ease),
+    padding-left 0.25s var(--ease, ease),
+    background 0.25s var(--ease, ease);
 }
 
 .services-list-item:hover,
 .services-list-item.is-active {
   padding-left: 0.75rem;
-  background: rgba(198, 154, 70, 0.08);
+
+  background: rgba(
+    198,
+    154,
+    70,
+    0.08
+  );
 }
 
-.services-list-item > span {
+/* =========================================================
+   SERVICE TEXT
+========================================================= */
+
+.services-list-text {
   display: flex;
   flex-direction: column;
+
   gap: 0.3rem;
+
+  min-width: 0;
 }
 
 .services-list-title {
-  font-family: var(--font-display);
+  font-family: var(
+    --font-display,
+    Georgia,
+    serif
+  );
+
   font-size: 1.15rem;
-  color: var(--text-900);
+
+  color: var(
+    --text-900,
+    #111522
+  );
+
+  transition:
+    color 0.25s ease;
 }
 
 .services-list-summary {
   font-size: 0.85rem;
+
+  line-height: 1.5;
+
+  color: var(
+    --text-600,
+    #5c6273
+  );
 }
+
+/* =========================================================
+   SERVICE ARROW
+========================================================= */
 
 .services-list-arrow {
   flex-shrink: 0;
+
   opacity: 0;
+
   transform: translateX(-6px);
-  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
-  color: var(--brass-600);
+
+  transition:
+    opacity 0.25s var(--ease, ease),
+    transform 0.25s var(--ease, ease);
+
+  color: var(
+    --brass-600,
+    #b2832f
+  );
 }
 
-.services-list-item.is-active .services-list-arrow,
-.services-list-item:hover .services-list-arrow {
+.services-list-item.is-active
+  .services-list-arrow,
+.services-list-item:hover
+  .services-list-arrow {
   opacity: 1;
   transform: translateX(0);
 }
 
 .services-list-item.is-active {
-  color: var(--text-900);
-}
-.services-list-item.is-active .services-list-title {
-  color: var(--brass-600);
+  color: var(
+    --text-900,
+    #111522
+  );
 }
 
+.services-list-item.is-active
+  .services-list-title {
+  color: var(
+    --brass-600,
+    #b2832f
+  );
+}
+
+/* =========================================================
+   SERVICE DETAIL CARD
+========================================================= */
+
 .services-detail {
-  background: var(--ink-900);
-  color: var(--text-inverse);
-  border-radius: var(--radius-md);
-  padding: clamp(1.75rem, 4vw, 2.5rem);
-  animation: detail-fade-in 0.4s var(--ease);
+  background: var(
+    --ink-900,
+    #0d1226
+  );
+
+  color: var(
+    --text-inverse,
+    #f4f2ea
+  );
+
+  border-radius: var(
+    --radius-md,
+    12px
+  );
+
+  padding: clamp(
+    1.75rem,
+    4vw,
+    2.5rem
+  );
+
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  animation:
+    detail-fade-in 0.4s
+    var(--ease, ease);
 }
 
 @keyframes detail-fade-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  .services-detail {
-    animation: none;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+/* =========================================================
+   SERVICE ICON
+========================================================= */
 
 .services-detail-icon {
   width: 52px;
   height: 52px;
+
   border-radius: 50%;
-  background: var(--ink-700);
-  color: var(--brass-500);
+
+  background: var(
+    --ink-700,
+    #252c50
+  );
+
+  color: var(
+    --brass-500,
+    #c69a46
+  );
+
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   margin-bottom: 1.4rem;
 }
 
+/* =========================================================
+   SERVICE DETAIL TEXT
+========================================================= */
+
 .services-detail-title {
+  font-family: var(
+    --font-display,
+    Georgia,
+    serif
+  );
+
   font-size: 1.4rem;
-  color: var(--text-inverse);
+
+  color: var(
+    --text-inverse,
+    #f4f2ea
+  );
+
+  margin: 0;
 }
 
 .services-detail-copy {
   margin-top: 0.9rem;
-  color: rgba(244, 242, 234, 0.78);
+
+  color: rgba(
+    244,
+    242,
+    234,
+    0.78
+  );
+
+  line-height: 1.7;
+
+  max-width: 48ch;
 }
+
+/* =========================================================
+   SERVICE DETAIL LINK
+========================================================= */
 
 .services-detail-link {
   margin-top: 1.6rem;
+
   display: inline-flex;
   align-items: center;
+
   gap: 0.5rem;
+
+  width: fit-content;
+
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--brass-500);
+
+  color: var(
+    --brass-500,
+    #c69a46
+  );
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    gap 0.25s ease,
+    color 0.25s ease;
 }
 
+.services-detail-link:hover {
+  gap: 0.8rem;
+
+  color: var(
+    --brass-400,
+    #d4aa58
+  );
+
+  text-decoration: none;
+}
+
+.services-detail-link svg {
+  flex-shrink: 0;
+
+  transition:
+    transform 0.25s ease;
+}
+
+.services-detail-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
 @media (min-width: 860px) {
+
   .services-grid {
-    grid-template-columns: 0.8fr 1.2fr;
+    grid-template-columns:
+      0.8fr 1.2fr;
   }
+
   .services-interactive {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
+
     border-top: none;
+
     padding-top: 0;
+
     align-items: stretch;
+  }
+
+  .services-detail {
+    min-height: 100%;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 859px) {
+
+  .services-hero {
+    height: 340px;
+    min-height: 340px;
+  }
+
+  .services-grid {
+    gap: 2.5rem;
+  }
+
+  .services-heading {
+    max-width: 20ch;
+  }
+
+  .services-interactive {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .services-hero {
+    height: 270px;
+    min-height: 270px;
+  }
+
+  .services-hero-overlay {
+    background: rgba(
+      10,
+      15,
+      35,
+      0.84
+    );
+  }
+
+  .services-hero-content {
+    padding: 0 20px;
+  }
+
+  .services-hero-content h1 {
+    font-size: 54px;
+  }
+
+  .services-hero-breadcrumb {
+    margin-top: 20px;
+
+    gap: 11px;
+
+    font-size: 11px;
+  }
+
+  .services-hero-breadcrumb-arrow {
+    font-size: 18px;
+  }
+
+  .services-grid {
+    gap: 2rem;
+  }
+
+  .services-heading {
+    max-width: 100%;
+    font-size: 1.8rem;
+  }
+
+  .services-copy {
+    font-size: 0.95rem;
+  }
+
+  .services-interactive {
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .services-list-item {
+    padding: 1.1rem 0.35rem;
+  }
+
+  .services-list-item:hover,
+  .services-list-item.is-active {
+    padding-left: 0.6rem;
+  }
+
+  .services-list-title {
+    font-size: 1.05rem;
+  }
+
+  .services-list-summary {
+    font-size: 0.8rem;
+  }
+
+  .services-detail {
+    padding: 1.5rem;
+    min-height: 250px;
+  }
+
+  .services-detail-title {
+    font-size: 1.3rem;
+  }
+
+  .services-detail-copy {
+    font-size: 0.9rem;
+  }
+
+  .services-detail-link {
+    font-size: 0.88rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .services-hero-image {
+    transition: none;
+  }
+
+  .services-detail {
+    animation: none;
+  }
+
+  .services-list-item,
+  .services-list-arrow,
+  .services-detail-link {
+    transition: none;
   }
 }
